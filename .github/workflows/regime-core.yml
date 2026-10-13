@@ -3,19 +3,48 @@ on: [push, pull_request]
 jobs:
   fit:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
+    permissions:
+      contents: read
     env:
       R_LIBS_USER: /tmp/research-r-library
       OPENBLAS_NUM_THREADS: '1'
       OMP_NUM_THREADS: '1'
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
       - name: Install narrow research dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends r-base-core r-cran-xts r-cran-dplyr r-cran-knitr r-cran-urca r-cran-nlme
+          sudo apt-get install -y --no-install-recommends ffmpeg fonts-dejavu-core r-base-core r-cran-xts r-cran-dplyr r-cran-knitr r-cran-urca r-cran-nlme
           mkdir -p "$R_LIBS_USER"
           Rscript -e 'install.packages("MSwM",repos="https://cloud.r-project.org",dependencies=FALSE)'
-      - run: Rscript test_temporal.R
-      - run: Rscript run_regime_core.R
-      - run: Rscript run_regime_core.R --past-only
+      - name: Test runner arguments
+        run: |
+          set -o pipefail
+          mkdir -p .demo-logs
+          Rscript test_runner_options.R 2>&1 | tee .demo-logs/runner-options.log
+      - name: Test temporal alignment
+        run: |
+          set -o pipefail
+          Rscript test_temporal.R 2>&1 | tee .demo-logs/temporal.log
+      - name: Fit archived reproduction
+        run: |
+          set -o pipefail
+          Rscript run_regime_core.R 2>&1 | tee .demo-logs/archived.log
+      - name: Fit past-only models
+        run: |
+          set -o pipefail
+          Rscript run_regime_core.R --past-only 2>&1 | tee .demo-logs/past-only.log
+      - name: Render candidate CLI demo
+        if: ${{ hashFiles('docs/demo/capture.json') == '' }}
+        run: python3 scripts/render_cli_demo.py --logs .demo-logs
+      - name: Verify CLI demo
+        run: python3 scripts/verify_cli_demo.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: 145-cli-demo-${{ github.event.pull_request.head.sha || github.sha }}
+          path: docs/demo/
+          if-no-files-found: error

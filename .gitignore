@@ -4,3 +4,5 @@ Rplots.pdf
 correlation_matrix.csv
 *_autocorrelation.csv
 stattest.csv
+.demo-logs/
+__pycache__/
