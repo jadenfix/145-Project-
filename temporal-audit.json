@@ -1,0 +1,56 @@
+[
+  {
+    "repo": "145-Project-",
+    "file": "data_1.csv",
+    "rows": 1840,
+    "valid_dates": 1839,
+    "date_start": "1871-01-01",
+    "date_end": "2024-03-01",
+    "chronological_monotone": false,
+    "duplicate_dates": 0,
+    "comparison": "finite original realpricelag vs chronological realprice.shift(-1), atol0.01 rtol0; separately vs shift(+1)",
+    "future_pairs": 1838,
+    "future_matches": 1838,
+    "past_pairs": 1837,
+    "past_matches": 3,
+    "invalid_date_rows": [
+      1839
+    ],
+    "valid_date_rows_monotonic": true,
+    "invalid_date_policy": "Trailing non-observation row excluded by original study row selection; date and nofuture checks applied to corrected fitting rows.",
+    "comparable_date_start": "1871-01-01",
+    "comparable_date_end": "2024-02-01",
+    "formula_usage": [
+      "xts$realprice <- 100*log(xts$realprice)",
+      "xts$realpricelag <- 100*log(xts$realpricelag)",
+      "msmod1 <- lm(xts$realprice ~ xts$realpricelag)"
+    ]
+  },
+  {
+    "repo": "145-Project-",
+    "file": "data_11.csv",
+    "rows": 1840,
+    "valid_dates": 1839,
+    "date_start": "1871-01-01",
+    "date_end": "2024-03-01",
+    "chronological_monotone": false,
+    "duplicate_dates": 0,
+    "comparison": "finite original realpricelag vs chronological realprice.shift(-1), atol0.01 rtol0; separately vs shift(+1)",
+    "future_pairs": 1838,
+    "future_matches": 1838,
+    "past_pairs": 1838,
+    "past_matches": 3,
+    "invalid_date_rows": [
+      1839
+    ],
+    "valid_date_rows_monotonic": true,
+    "invalid_date_policy": "Trailing non-observation row excluded by original study row selection; date and nofuture checks applied to corrected fitting rows.",
+    "comparable_date_start": "1871-01-01",
+    "comparable_date_end": "2024-02-01",
+    "formula_usage": [
+      "xts$realprice <- 100*log(xts$realprice)",
+      "xts$realpricelag <- 100*log(xts$realpricelag)",
+      "msmod1 <- lm(xts$realprice ~ xts$realpricelag)"
+    ]
+  }
+]
