@@ -8,8 +8,10 @@ if (length(file_arg)) {
 }
 # Execute the original archived MS regression core, keeping data and formulas.
 # Plotly presentation and later exploratory sections are outside this lane.
-args <- commandArgs(trailingOnly=TRUE)
-past_only <- '--past-only' %in% args
+source('runner_options.R')
+runner_options <- parse_runner_options(commandArgs(trailingOnly=TRUE))
+past_only <- runner_options$past_only
+cat('Runner mode:', runner_options$mode, '\n')
 maxiter <- as.integer(Sys.getenv('RESEARCH_MAX_ITER','100'))
 if (is.na(maxiter) || maxiter<1L) stop('RESEARCH_MAX_ITER must be positive')
 fit_control <- list(parallelization=FALSE,maxiter=maxiter)
