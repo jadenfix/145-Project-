@@ -1,0 +1,35 @@
+{
+  "schema": "145-cli-demo/v1",
+  "scope": "Strict CLI routing and real archived/past-only execution; no forecasting or trading claim.",
+  "source_commit": "56347ae75640a626fd7970756b05a5a2b2ccf32b",
+  "source_blobs": {
+    ".github/workflows/regime-core.yml": "a6ee2cc56bf21769a9dc22a16b2a4d4712393593",
+    "README.md": "314c13062a9cfdb05657bc30050b31887f45466c",
+    "run_regime_core.R": "7208e419e61e88b0745fd3d3eeee188527be0d16",
+    "runner_options.R": "435b093b8bae029d91548b81e81b4aac6018e2c9",
+    "test_runner_options.R": "8dc423d5dff0b02ee6b0439e2166ea86a17992eb",
+    "test_temporal.R": "b2361f17d0d18e0c24fc4cc9c98a34645f856347",
+    "scripts/render_cli_demo.py": "5e04a5f00d933410ae25bd8d192c35cfe1c941c9",
+    "scripts/verify_cli_demo.py": "faf03c1a8223914e5c76dde2f2b66dbbf572e1cc"
+  },
+  "commands": [
+    "Rscript test_runner_options.R",
+    "Rscript test_temporal.R",
+    "Rscript run_regime_core.R",
+    "Rscript run_regime_core.R --past-only"
+  ],
+  "artifacts": {
+    "145-cli-guard.gif": {
+      "bytes": 485659,
+      "sha256": "aaa10925f548d544152ada370bf18f71685051700aaeca14431cd77f97ddbb3b"
+    },
+    "145-cli-guard.mp4": {
+      "bytes": 225133,
+      "sha256": "80dd40728f9889d002c7eaa8ad0615e1610e6e5a7084372dc997364c54b54297"
+    },
+    "145-cli-guard-poster.png": {
+      "bytes": 61926,
+      "sha256": "c51d2b6672ae2b8b051cce0d7cd5d392beb5c60c40c9d37865364627e1d770fe"
+    }
+  }
+}
